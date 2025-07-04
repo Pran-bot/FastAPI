@@ -2,7 +2,7 @@ from fastapi import APIRouter,status,Depends, UploadFile, File, Form
 from typing import Optional
 from database import Session,engine
 from schemas import SignUpModel,LoginModel
-from models import User
+from models import User,Pizza
 from fastapi.exceptions import HTTPException
 from werkzeug.security import generate_password_hash,check_password_hash
 from fastapi_jwt_auth import AuthJWT
@@ -148,3 +148,26 @@ async def get_user_by_token(Authorize: AuthJWT = Depends()):
     }
 
     return jsonable_encoder(response)
+
+# get pizza dat to user
+@auth_router.get('/pizzas')
+async def list_all_pizzas(Authorize:AuthJWT=Depends()):
+    try:
+        Authorize.jwt_required()
+    except Exception as e:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="Invalid Token"
+                            )
+    
+    current_user=Authorize.get_jwt_subject()
+
+    user=session.query(User).filter(User.username==current_user).first()
+
+    if user:
+        orders=session.query(Pizza).all()
+
+        return jsonable_encoder(orders)
+    
+    raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED,
+                            detail="You are not a Super User"
+                            )

@@ -48,7 +48,7 @@ class Pizza(Base):
     __tablename__ = "pizzas"
 
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, nullable=False)
-    description = Column(String)
-    image_url = Column(String)
+    name = Column(String(200), nullable=False)
+    description = Column(String(500))
+    image_url = Column(String(200))
     price = Column(Float, nullable=False)

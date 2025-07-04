@@ -57,8 +57,9 @@
             }
 
             .container {
-                max-width: 1200px;
-                margin: 0 auto;
+                max-width: 2000px;
+                margin-left: 0;
+                margin-right: 0;
                 padding: 0 1rem;
             }
 
@@ -297,21 +298,15 @@
                 margin-right: 0;
             }
 
-            /* >more preview */
-            .more-container {
-                display: block;
-                margin: auto;
-                padding: 40px;
-            }
-
-            .more-grid {
+            /*more-items*/
+            .pizza-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 40px 40px;
+                gap: 20px 20px;
 
             }
 
-            .more-item {
+            .pizza-item {
                 display: flex;
                 flex-direction: column;
                 background: var(--light-color);
@@ -321,34 +316,39 @@
                 transition: transform 0.3s;
             }
 
-            .more-item:hover {
+            .pizza-item:hover {
                 transform: translateY(-5px);
             }
 
-            .more-item img {
+            .pizza-item img {
                 width: 100%;
                 height: 180px;
                 object-fit: cover;
             }
 
-            .more-item-content {
+            .pizza-item-content {
                 padding: 1rem;
             }
 
-            .more-item-content h4 {
+            .pizza-item-content h4 {
                 margin-bottom: 0.5rem;
                 font-size: 1.2rem;
                 color: var(--dark-color);
             }
 
-            .more-item-content p {
-                font-size: 0.9rem;
+            .pizza-item-content p {
+                font-size: 0.8rem;
                 margin-bottom: 0.75rem;
             }
 
-            .more-item-content .price {
+            .pizza-item-content .price {
                 font-weight: 600;
                 color: var(--primary-color);
+            }
+
+            .pizza-item .a {
+                padding-left: 4px;
+                padding-right: 40px;
             }
 
             /* Responsive */
@@ -496,7 +496,7 @@
     </section>
 
     <!-- more like this -->
-    <section id="more">
+    <!-- <section id="more">
         <div class="more-container">
             <h2 class="section-title">More Popular Pizzas</h2>
             <div class="more-grid">
@@ -637,6 +637,12 @@
                 </div>
             </div>
         </div>
+    </section> -->
+    <section id="menu">
+        <div class="container">
+            <h2 class="section-title">You may like this!!!!</h2>
+            <div id="pizza-list" class="pizza-grid"></div>
+        </div>
     </section>
 
     <script>
@@ -665,6 +671,42 @@
                 alert(`Failed to place order: ${data.detail || "Unknown error"}`)
             }
         });
+        async function fetchPizzas() {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await fetch('/auth/pizzas', {
+                    method: 'GET', //method to get all pizzas
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
+                const data = await response.json();
+
+                const pizzaList = document.getElementById("pizza-list");
+                pizzaList.innerHTML = "";
+
+                if (Array.isArray(data)) {
+                    data.forEach(pizza => {
+                        pizzaList.innerHTML += `
+                    <div class="pizza-item">
+                    <img src="/upload/${pizza.image_url}" alt="${pizza.name}"/>
+                    <div class="pizza-item-content">
+                        <h4><strong>${pizza.name}</strong></h4>
+                        <p>${pizza.description}</p>
+                        <p class="price"><strong>₹${pizza.price}</strong></p>
+                    </div>
+                    <a href="/user/place-order" class="btn-order">Order Now</a>
+                    </div>
+                        `;
+                    });
+                } else {
+                    console.error("Expected an array of pizzas, but received:", data);
+                }
+            } catch (error) {
+                console.error("Error fetching pizzas:", error);
+            }
+        }
+        window.onload = fetchPizzas;
     </script>
 
 </html>
