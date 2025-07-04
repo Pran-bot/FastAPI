@@ -173,12 +173,6 @@
             }
 
             /* Menu Preview */
-            .menu-container {
-                width: 75%;
-                background-color: #f9f9f9;
-                padding: 20px;
-            }
-
             .left-column {
                 overflow-y: auto;
                 background-color: #fff;
@@ -190,6 +184,12 @@
                 max-width: 960px;
                 margin: 0 auto;
                 padding: 1rem;
+                background-color: #1d3557;
+            }
+
+            .menu-container h2{
+                color: white;
+                text-align: center;
             }
 
             /* .menu-grid {
@@ -355,7 +355,7 @@
             .order-card {
                 display: flex;
                 align-items: center;
-                background: #fff;
+                background:#b5cff3;
                 padding: 1.5rem;
                 border-radius: 6px;
                 box-shadow: 0 1px 3px rgba(27, 31, 35, 0.1);
@@ -392,6 +392,7 @@
                 font-weight: 600;
                 color: var(--primary-color);
                 gap: 20px;
+                background-color: white;
             }
 
             .order-card-content .username {
@@ -686,7 +687,7 @@
               <p class="username">Pizza Name: <strong>Margherita Pizza</strong></p>
               <p class="size">Pizza Size: <strong>${order.pizza_size.value.toUpperCase()}</strong></p>
               <p class="quantity">Quantity: ${order.quantity}</p>
-              <p class="cost">Pizza cost: <strong>${order.quantity*(100)}</strong></p>
+              <p class="cost">Pizza cost: <strong>₹${order.quantity*(100)}</strong></p>
               <p class="status">Status: <span style="color: orange;">${order.order_status.value.toUpperCase()}</span></p>
             </div>
           </div>

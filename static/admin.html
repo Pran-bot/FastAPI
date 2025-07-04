@@ -54,6 +54,7 @@
                 z-index: 1000;
                 box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
+
             .container {
                 max-width: 1200px;
                 margin: 0 auto;
@@ -67,6 +68,7 @@
                 width: 100%;
                 padding: 1rem 0;
             }
+
             .logo {
                 font-size: 1.5rem;
                 font-weight: 700;
@@ -134,7 +136,7 @@
             .btn-primary:hover {
                 background-color: darken(var(--primary-color), 10%);
             }
-            
+
             .btn-primary {
                 padding: 0.6rem 1.2rem;
                 background-color: var(--primary-color);
@@ -150,6 +152,66 @@
                 background-color: darken(var(--primary-color), 10%);
             }
 
+            .btn-order {
+                position: relative;
+                color: var(--light-color);
+                background-color: red;
+                font-weight: 600;
+                border-radius: 0 300px 300px 5px;
+                padding: 0.4px 1px 1px;
+                cursor: pointer;
+            }
+
+            .btn-order:hover {
+                background-color: var(--light-color);
+                color: Red;
+            }
+
+            .btn-order::after {
+                content: '';
+                position: relative;
+                left: 1;
+                right: 1;
+                bottom: 1;
+                top: 1;
+                background-color: var(--light-color);
+                z-index: -1;
+                border-radius: 250px;
+                padding: 0.4rem 4rem 4rem 4rem;
+                opacity: 5;
+                transition: opacity 0.3s;
+            }
+
+            .btn-update {
+                position: relative;
+                color: var(--light-color);
+                background-color: green;
+                font-weight: 600;
+                border-radius: 0 300px 300px 5px;
+                padding: 0.4px 1px 1px;
+                cursor: pointer;
+            }
+
+            .btn-update:hover {
+                background-color: var(--light-color);
+                color: green;
+            }
+
+            .btn-update::after {
+                content: '';
+                position: relative;
+                left: 1;
+                right: 1;
+                bottom: 1;
+                top: 1;
+                background-color: var(--light-color);
+                z-index: -1;
+                border-radius: 250px;
+                padding: 0.4rem 4rem 4rem 4rem;
+                opacity: 5;
+                transition: opacity 0.3s;
+            }
+
             /* Sections */
             section {
                 padding: 4rem 0;
@@ -163,25 +225,13 @@
             }
 
             /* Menu Preview */
-            .menu-container {
-                display: flex;
-                max-width: 1200px;
-                margin: 1 auto;
-                padding: 0 1rem;
-                min-height: 1000px;
-                overflow: visible;
-            }
-
             .menu-grid {
-                display: grid;
-                grid-template-columns: 1100px 1fr;
-                grid-template-rows: repeat(5, auto);
-                gap: 0px 0px;
-                column-gap: 20px;
+                display: flex;
+                flex-direction: column;
             }
 
             .menu-item {
-                background: var(--light-color);
+                background: var(--dark-color);
                 border-radius: 1rem;
                 overflow: hidden;
                 box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
@@ -218,16 +268,57 @@
                 color: var(--primary-color);
             }
 
-            .menu-container .left-column {
+            /* pizza section */
+            .pizza-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 20px 20px;
-                overflow-y: auto;
+
             }
 
-            .right-column {
-                display: block;
-                margin-right: auto;
+            .pizza-item {
+                display: flex;
+                flex-direction: column;
+                background: var(--light-color);
+                border-radius: 1rem;
+                overflow: hidden;
+                box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+                transition: transform 0.3s;
+            }
+
+            .pizza-item:hover {
+                transform: translateY(-5px);
+            }
+
+            .pizza-item img {
+                width: 100%;
+                height: 180px;
+                object-fit: cover;
+            }
+
+            .pizza-item-content {
+                padding: 1rem;
+            }
+
+            .pizza-item-content h4 {
+                margin-bottom: 0.5rem;
+                font-size: 1.2rem;
+                color: var(--dark-color);
+            }
+
+            .pizza-item-content p {
+                font-size: 0.8rem;
+                margin-bottom: 0.75rem;
+            }
+
+            .pizza-item-content .price {
+                font-weight: 600;
+                color: var(--primary-color);
+            }
+
+            .pizza-item .a {
+                padding-left: 4px;
+                padding-right: 40px;
             }
 
             /* CTA Banner */
@@ -372,158 +463,45 @@
         </div>
     </header>
 
-
-
-
-
     <!-- showcase -->
     <section id="menu">
-        <div class="menu-container">
+        <div class="container">
             <div class="menu-grid">
-                <div class="left-column">
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Pepperoni Pizza">
-                        <div class="menu-item-content">
-                            <h4>Pepperoni Pizza</h4>
-                            <p>Crispy crust, mozzarella cheese, and spicy pepperoni.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Margherita Pizza">
-                        <div class="menu-item-content">
-                            <h4>Margherita Pizza</h4>
-                            <p>Classic with fresh tomatoes, basil, and mozzarella.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Veggie Pizza">
-                        <div class="menu-item-content">
-                            <h4>Veggie Delight</h4>
-                            <p>Loaded with fresh vegetables and cheese.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Pepperoni Pizza">
-                        <div class="menu-item-content">
-                            <h4>Pepperoni Pizza</h4>
-                            <p>Crispy crust, mozzarella cheese, and spicy pepperoni.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Margherita Pizza">
-                        <div class="menu-item-content">
-                            <h4>Margherita Pizza</h4>
-                            <p>Classic with fresh tomatoes, basil, and mozzarella.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Veggie Pizza">
-                        <div class="menu-item-content">
-                            <h4>Veggie Delight</h4>
-                            <p>Loaded with fresh vegetables and cheese.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Pepperoni Pizza">
-                        <div class="menu-item-content">
-                            <h4>Pepperoni Pizza</h4>
-                            <p>Crispy crust, mozzarella cheese, and spicy pepperoni.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Margherita Pizza">
-                        <div class="menu-item-content">
-                            <h4>Margherita Pizza</h4>
-                            <p>Classic with fresh tomatoes, basil, and mozzarella.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Veggie Pizza">
-                        <div class="menu-item-content">
-                            <h4>Veggie Delight</h4>
-                            <p>Loaded with fresh vegetables and cheese.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Pepperoni Pizza">
-                        <div class="menu-item-content">
-                            <h4>Pepperoni Pizza</h4>
-                            <p>Crispy crust, mozzarella cheese, and spicy pepperoni.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Margherita Pizza">
-                        <div class="menu-item-content">
-                            <h4>Margherita Pizza</h4>
-                            <p>Classic with fresh tomatoes, basil, and mozzarella.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                    <div class="menu-item">
-                        <img src="/static/image.png" alt="Veggie Pizza">
-                        <div class="menu-item-content">
-                            <h4>Veggie Delight</h4>
-                            <p>Loaded with fresh vegetables and cheese.</p>
-                            <p class="price">₹100</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="right-column">
-                    <form id="pizzaForm" class="pizzaForm">
-                        <h2 class="section-title">Pizza Data</h2>
-                        <input type="text" id="name" placeholder="Pizza Name" required />
-                        <input type="text" id="price" placeholder="Price" required />
-                        <textarea id="description" placeholder="Description" rows="3" required></textarea>
-                        <input type="file" id="image" accept="image/*" required />
-                        <button type="submit" class="button1">Add Pizza</button>
-                    </form>
-                </div>
+                <form id="pizzaForm" class="pizzaForm">
+                    <h2 class="section-title">Pizza Data</h2>
+                    <input type="text" id="name" placeholder="Pizza Name" required />
+                    <textarea id="description" placeholder="Description" rows="3" required></textarea>
+                    <input type="file" id="image" accept="image/*" required />
+                    <input type="text" id="price" placeholder="Price" required />
+                    <button type="submit" class="button1">Add Pizza</button>
+                </form>
             </div>
         </div>
     </section>
+    <section id="menu">
+        <div class="container">
+            <h2 class="section-title">Current Pizzas</h2>
+            <div id="pizza-list" class="pizza-grid"></div>
+        </div>
+    </section>
 
-    <div class="pizza-list" id="pizzaList"></div>
+
 
     <script>
-        async function fetchPizzas() {
-            const res = await fetch("/pizzas/add-pizza");
-            const data = await res.json();
-
-            const list = document.getElementById("pizzaList");
-            list.innerHTML = "";
-
-            data.forEach(pizza => {
-                list.innerHTML += `
-        <div class="pizza-card">
-          <img src="/uploads/ + {pizza.image_filename}" alt="${pizza.name}" />
-          <h3>${pizza.name}</h3>
-          <p><strong>₹${pizza.price}</strong></p>
-          <p>${pizza.description}</p>
-        </div>
-      `;
-            });
-        }
-
         document.getElementById("pizzaForm").addEventListener("submit", async (e) => {
             e.preventDefault();
             const form = new FormData();
+            const token = localStorage.getItem("token");
             form.append("name", document.getElementById("name").value);
-            form.append("price", document.getElementById("price").value);
             form.append("description", document.getElementById("description").value);
-            form.append("image", document.getElementById("image").files[0]);
+            form.append("image_url", document.getElementById("image").files[0]);
+            form.append("price", document.getElementById("price").value);
 
             const res = await fetch("/pizzas/add-pizza", {
                 method: "POST",
+                headers: {
+                    Authorization: `Bearer ${token}`
+                },
                 body: form
             });
 
@@ -536,7 +514,43 @@
             }
         });
 
-        fetchPizzas();
+        async function fetchPizzas() {
+            try {
+                const token = localStorage.getItem("token");
+                const response = await fetch('/pizzas/pizzas', {
+                    method: 'GET', //method to get all pizzas
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    },
+                });
+                const data = await response.json();
+
+                const pizzaList = document.getElementById("pizza-list");
+                pizzaList.innerHTML = "";
+
+                if (Array.isArray(data)) {
+                    data.forEach(pizza => {
+                        pizzaList.innerHTML += `
+                    <div class="pizza-item">
+                    <img src="/upload/${pizza.image_url}" alt="${pizza.name}"/>
+                    <div class="pizza-item-content">
+                        <h4><strong>${pizza.name}</strong></h4>
+                        <p>${pizza.description}</p>
+                        <p class="price"><strong>₹${pizza.price}</strong></p>
+                    </div>      
+                    <a href="/pizzas/pizza/${pizza.id}" class="btn-order">Delete Pizza</a>
+                    <a href="/pizzas/pizza/${pizza.id}" class="btn-update">Update Pizza</a>
+                    </div>
+                        `;
+                    });
+                } else {
+                    console.error("Expected an array of pizzas, but received:", data);
+                }
+            } catch (error) {
+                console.error("Error fetching pizzas:", error);
+            }
+        }
+        window.onload = fetchPizzas;
     </script>
 </body>
 

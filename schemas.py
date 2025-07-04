@@ -24,7 +24,7 @@ class SignUpModel(BaseModel):
                 "password":"password",
                 "is_staff":False,
                 "is_active":True,
-                "image":"/uploads/profile.jpg"
+                "image":"/upload/profile.jpg"
             }
         }
 
