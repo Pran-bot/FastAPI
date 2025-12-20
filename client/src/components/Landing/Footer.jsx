@@ -7,9 +7,7 @@ import { FaYoutube } from 'react-icons/fa';
 const Footer = () => {
     return (
         <>
-            {/* <div>This is Footer Section</div>
-        <div className=""></div> */}
-            <footer className="bg-black py-12 px-4 sm:px-6 lg:px-8">
+            <footer id="Footer" className="bg-black py-12 px-4 sm:px-6 lg:px-8">
                 <div className="flex my-0 mx-35 justify-between items-center">
                     <div>
                         <h3 className="text-2xl font-bold text-[#ff4d4d] mb-4 flex items-center">Pizza Paradise</h3>
@@ -42,8 +40,8 @@ const Footer = () => {
                 </div>
                 <div className="flex my-10 mx-35 justify-between items-center">
                     <div className="flex flex-row gap-4">
-                        <h1 className="text-white">Help us in serving you better</h1>
-                        <a className="text-black bg-white rounded-[2px] overflow-hidden"><span>Give Feedback</span></a>
+                        <h1 className="text-white flex items-center">Help us in serving you better</h1>
+                        <a className="text-black bg-white rounded-[10px] p-2" href="/account/login"><span>Give Feedback</span></a>
                     </div>
                     <div>
                         <h3 className="text-center text-white text-lg">Follow us</h3>
