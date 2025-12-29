@@ -1,3 +1,4 @@
+const { required } = require('joi');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -11,10 +12,14 @@ const PizzaSchema = new Schema({
         required: true
     },
     price: {
-        type: float,
+        type: String,
         required: true
-    }
-})
+    },
+    imageUrl: {
+        type: String,
+        required: true
+    },
+}, { timestamps: true})
 
 const PizzaModel = mongoose.model('pizzas', PizzaSchema)
 module.exports = PizzaModel;
