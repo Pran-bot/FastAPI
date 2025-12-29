@@ -2,9 +2,10 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const AuthRouter = require('./Routes/AuthRouter')
+const AuthRouter = require('./Routes/AuthRoutes/AuthRouter.js')
+const PizzaRouter = require("./Routes/PizzaRoutes/PizzaRoutes.js")
 
-require('dotenv').config();
+require("dotenv").config();
 
 require('./models/db')
 
@@ -25,7 +26,11 @@ app.use(cors({
 }))
 
 app.use(bodyParser.json());
+// Auth routes
 app.use('/auth', AuthRouter);
+
+// Pizza routes
+app.use('/pizza', PizzaRouter);
 
 app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
