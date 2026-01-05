@@ -1,14 +1,17 @@
 import React from "react";
 import Navbar from "../../../components/Navbar/Navbar";
 import Footer from "../../../components/Landing/Footer";
-import UserList from "../../../components/User/userList";
+import UserTable from "../../../components/User/UserTable";
+import user from "../../../constant/userData";
 
 const Users = () => {
     return (
         <>
             <Navbar />
-            <main className="mt-16">
-                <UserList />
+            <main className="mt-16 bg-white">
+                <div className="max-w-full mx-auto p-8">
+                    <UserTable users={user} />
+                </div>
                 <Footer />
             </main>
         </>

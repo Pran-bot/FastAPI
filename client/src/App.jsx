@@ -15,6 +15,7 @@ import Pizza from './pages/Product/Pizza.jsx';
 import ProtectedPage from './pages/ProtectedPage.jsx'
 import 'react-toastify/dist/ReactToastify.css'
 import { ToastContainer } from 'react-toastify';
+import CompleteProfile from './components/Auth/CompleteProfile/CompleteProfile.jsx'
 
 function App() {
 
@@ -47,8 +48,13 @@ function App() {
 
           {/* Product routes */}
           <Route path='/pizza/:id' element={<Pizza />}></Route>
+
+          {/* Complete Profile on Signup */}
+          {/* <Route element={<ProtectedPage />}> */}
+            <Route path='/complete-profile' element={<CompleteProfile />} ></Route>
+          {/* </Route> */}
         </Routes>
-      </BrowserRouter>
+      </BrowserRouter >
 
 
       <ToastContainer

@@ -7,8 +7,9 @@ const UserSchema = new Schema({
         required: true
     },
     email: {
-        type :String,
-        required: true
+        type: String,
+        required: true,
+        unique: true
     },
     password: {
         type: String,
@@ -22,8 +23,28 @@ const UserSchema = new Schema({
     is_active: {
         type: Boolean,
         default: true
+    },
+    address: {
+        type: String,
+        default: null
+    },
+    city: {
+        type: String,
+        default: null
+    },
+    state: {
+        type: String,
+        default: null
+    },
+    pincode: {
+        type: Number,
+        default: null
+    },
+    is_profile_completed: {
+        type: Boolean,
+        default: false
     }
-})
+}, { timestamps: true });
 
 const UserModel = mongoose.model('users', UserSchema)
 module.exports = UserModel;

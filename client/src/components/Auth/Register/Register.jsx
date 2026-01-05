@@ -21,18 +21,19 @@ function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log({
-      name,
-      email,
-      role: isStaff ? "admin" : "user",
-    });
+    // for debug
+    // console.log({
+    //   name,
+    //   email,
+    //   role: isStaff ? "admin" : "user",
+    // }); 
 
     await execute("/auth/signup", "POST",
       {
         name: name,
         email: email,
         password: password,
-        role: isStaff ? "admin" : "user",
+        role: isStaff ? "admin" : "user"
       }
     );
   };
@@ -46,11 +47,18 @@ function Register() {
       dispatch(updateAuthState({
         isAuthenticated: true,
         user: data.name,
-        role: data.role
+        role: data.role,
+        is_profile_completed: data.is_profile_completed
       })
       );
       toast.success("Signup successful!");
-      navigate("/home");
+
+      if (!data.is_profile_completed) {
+        toast.info("Please complete your Profile First!!");
+        navigate("/complete-profile");
+      } else {
+        navigate("/home");
+      }
     } else if (status == "error") {
       toast.error("Email already exist please login!");
     }
