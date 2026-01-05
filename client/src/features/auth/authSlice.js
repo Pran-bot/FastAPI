@@ -4,6 +4,8 @@ const initialState = {
     isAuthenticated: false,
     user: null,
     role: null,
+    token: null,
+    is_profile_completed: false
 };
 
 export const authSlice = createSlice({
@@ -14,6 +16,8 @@ export const authSlice = createSlice({
             state.isAuthenticated = action.payload.isAuthenticated;
             state.user = action.payload.user || null;
             state.role = action.payload.role || null;
+            state.token = action.payload.token || null;
+            state.is_profile_completed = action.payload.is_profile_completed;
         },
         refreshAuthState: (state) => {
             state.isAuthenticated = false;

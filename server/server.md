@@ -34,6 +34,26 @@ Creatting new user
 ```
 POST /auth/signup
 ```
+
+Get All user
+```
+GET /admin/users
+```
+
+Get Specifc User
+```
+GET /me/:id/profile
+```
+
+Updatting remaining Profile
+```
+PATCH /me/complete-profile
+```
+
+Updating whole profile
+```
+PATCH /me/:id/update-profile
+```
 #
 
 **backend API for Pizza info (for admin)** *to-do*

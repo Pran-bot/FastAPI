@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../../App.css";
 import useManualFetch from "../../../shared/hooks/useManualFetch.jsx";
 import { useDispatch } from "react-redux";
-import {updateAuthState} from "../../../features/auth/authSlice";
+import { updateAuthState } from "../../../features/auth/authSlice";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 
@@ -30,13 +30,20 @@ const Login = () => {
             dispatch(updateAuthState({
                 isAuthenticated: true,
                 user: data.name,
-                role: data.role
+                role: data.role,
+                token: data.token,
+                is_profile_completed: data.is_profile_completed
             })
             );
             toast.success("Login successful!");
-            navigate(`/home`);
+            if (!data.is_profile_completed) {
+                toast.info("Please complete your Profile First!!");
+                navigate("/complete-profile");
+            } else {
+                navigate("/home");
+            }
         }
-        else if(status === "error"){
+        else if (status === "error") {
             toast.error("Email or Password Incorrect!");
         }
     }, [status, data, dispatch, navigate]);
@@ -50,18 +57,18 @@ const Login = () => {
                         <div className="mb-4 relative" >
                             <input
                                 placeholder="Email"
-                                className="w-full px-4 py-3 pr-12 border-2 border-[#eee] rounded-[10px] text-base transition duration-300 focus:border-[#ff4d4d] outline-none" type="username" 
+                                className="w-full px-4 py-3 pr-12 border-2 border-[#eee] rounded-[10px] text-base transition duration-300 focus:border-[#ff4d4d] outline-none" type="username"
                                 onChange={(e) => setEmail(e.target.value)}
-                                />
+                            />
                             <i className="bx bxs-user absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" ></i>
                         </div>
                         {/* Password input */}
                         <div className="mb-4 relative">
                             <input type="password"
                                 placeholder="Password"
-                                className="w-full px-4 py-3 pr-12 border-2 border-[#eee] rounded-[10px] text-base transition duration-300 focus:border-[#ff4d4d] outline-none" 
+                                className="w-full px-4 py-3 pr-12 border-2 border-[#eee] rounded-[10px] text-base transition duration-300 focus:border-[#ff4d4d] outline-none"
                                 onChange={(e) => setPassword(e.target.value)}
-                                />
+                            />
                             <i className="bx bxs-lock-alt absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400" ></i>
                         </div>
 
@@ -69,7 +76,7 @@ const Login = () => {
                         <div className="flex justify-between text-sm mb-6">
                             <label className="flex items-center gap-2"><input type="checkbox" />Remember Me</label>
                             {/* checkiing user type */}
-                            <label className="flex items-center gap-2"><input type="checkbox" 
+                            <label className="flex items-center gap-2"><input type="checkbox"
                             // onChange={(e) => e.target.checked}
                             />Is Staff</label>
                         </div>

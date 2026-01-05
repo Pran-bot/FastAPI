@@ -4,25 +4,15 @@ const UserModel = require("../models/User");
 
 const signup = async (req, res) => {
     try {
-        const { name, email, password, role, is_active } = req.body;
+        const { name, email, password, role, is_active, is_profile_completed } = req.body;
         const user = await UserModel.findOne({ email });
         if (user) {
             return res.status(409)
                 .json({ message: 'User already exists, you can login', success: false });
         }
-        const userModel = new UserModel({ name, email, password, role, is_active });
+        const userModel = new UserModel({ name, email, password, role, is_active, is_profile_completed });
         userModel.password = await bcrypt.hash(password, 10);
         await userModel.save();
-        // const jwttok = jwt.sign({ email: user.email, id: user._id },
-        //     process.env.JWT_SECRET,
-        //     { expiresIn: '24h' }
-        // )
-        // res.cookie(jwttok, {
-        //     token: jwttok,
-        //     httpOnly: true,
-        //     secure: true,
-        //     sameSite: 'None'
-        // });
         res.status(201)
             .json({
                 message: "SignUp Successfully",
@@ -30,6 +20,8 @@ const signup = async (req, res) => {
                 email,
                 name,
                 role,
+                is_active: userModel.is_active,
+                is_profile_completed: userModel.is_profile_completed
             })
     } catch (err) {
         res.status(500)
@@ -72,7 +64,9 @@ const login = async (req, res) => {
                 email,
                 name: user.name,
                 role: user.role,
-                is_active: user.is_active
+                is_active: user.is_active,
+                is_profile_completed: user.is_profile_completed,
+                token: jwttok,
             })
     }
     catch (err) {

@@ -17,6 +17,10 @@ const ProtectedPage = ({ adminOnly = false }) => {
 
     if (!isAuthenticated) return <Navigate to="/account/login" />;
     if (adminOnly && role !== "admin") return <Navigate to="/home" />
+    // if (is_profile_completed) {
+    //     // return <Navigate to="/home" />
+    //     toast.error("Done with Profile!!!");
+    // }
 
     return <Outlet />;
 };

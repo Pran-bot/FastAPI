@@ -1,6 +1,7 @@
-import React from "react";
+import { useSelector } from "react-redux";
 
 const PizzaCard = ({ pizza }) => {
+    const { is_profile_completed, role } = useSelector((state) => state.auth);
     const link = `${pizza.imageUrl}`
     const link2 = `/pizza/${pizza.id}`;
     return (
@@ -12,7 +13,7 @@ const PizzaCard = ({ pizza }) => {
                         <h4 className="mt-4 font-bold">{pizza.name}</h4>
                         <p className="mt-4">{pizza.description}</p>
                         <p className="mt-4">{pizza.price}</p>
-                        <p className="text-center bg-[#ff4d4d] p-4 rounded-xl text-white hover:bg-red-500 mt-4">View More</p>
+                        <p className="text-center bg-[#ff4d4d] p-4 rounded-xl text-white hover:bg-red-500 mt-4">{is_profile_completed && role==="user" ? "Order Now" : "View More"}</p>
                     </div>
                 </div>
             </a>
