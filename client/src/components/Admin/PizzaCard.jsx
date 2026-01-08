@@ -1,4 +1,4 @@
-import { FaEllipsisV } from "react-icons/fa";
+ import { FaEllipsisV } from "react-icons/fa";
 import { useState } from "react";
 
 const PizzaCard = ({ pizza , onEdit, onView, onDelete}) => {
