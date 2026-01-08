@@ -137,7 +137,7 @@ const PizzaTable = ({ pizzas = [] }) => {
                 flex items-center justify-between text-sm text-gray-900
                 ">
                     <p>
-                        Showing {pizzas.length} of {pizzas.length} pizzas
+                        Showing {filteredPizzas.length} of {pizzas.length} pizzas
                     </p>
                     <div className="flex gap-4">
                         <button>← Previous</button>
