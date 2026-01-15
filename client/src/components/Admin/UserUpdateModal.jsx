@@ -1,9 +1,10 @@
 import Modal from "../Modal/Modal";
 import { useState } from "react";
-import { CheckCircle2, User, Mail, Briefcase } from "lucide-react"
+import { CheckCircle2, User, Mail, Briefcase, ShieldX } from "lucide-react"
 import useManualFetch from "../../shared/hooks/useManualFetch";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import ProfileAvtar from "../Profile/ProfileAvtar";
 
 const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
     const [role, setRole] = useState("");
@@ -52,15 +53,22 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
             <Modal isOpen={isOpen} onClose={onClose} title={actionType === "edit" ? "Update User" : "User"}>
                 {actionType === "edit" ? (
                     <div className="flex flex-col gap-3">
+                        <div className="flex justify-center mb-6">
+                            <ProfileAvtar />
+                        </div>
                         <input
-                            className="input"
+                            className="input w-full py-1 px-3 focus:outline-none border 
+                                    border-gray-500 rounded-sm text-gray-900
+                                    placeholder-gray-500 bg-gray-300"
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
                             placeholder="User role"
                         />
 
                         <input
-                            className="input mt-3"
+                            className="input w-full py-1 px-3 focus:outline-none border 
+                                    border-gray-500 rounded-sm text-gray-900
+                                    placeholder-gray-500 bg-gray-300"
                             value={is_active}
                             onChange={(e) => setis_active(e.target.value)}
                             placeholder="User status (true for active ,false for blocked)"
@@ -69,7 +77,7 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
                         <button
                             onClick={handleEdit}
                             // disabled={loading}
-                            className="btn-primary w-full mt-4"
+                            className="text-white bg-[#ff4d4d] px-3 py-1 rounded-lg hover:bg-red-500"
                         >
                             {status === "loading" ? "Updating..." : "Update"}
                         </button>
@@ -77,6 +85,10 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
                 ) : (
                     <div className="bg-white p-6 shadow-md w-full max-w-md mx-auto">
                         <div className="px-1 py-1 space-y-8">
+                            {/*profile picture  */}
+                            <div className="flex justify-center mb-6">
+                                <ProfileAvtar />
+                            </div>
                             {/* name */}
                             <div className="space-y-3">
                                 <div className="flex items-center gap-2">
@@ -107,8 +119,15 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
                                 <div>
                                     <label className="text-xs font-bold uppercase tracking widest text-[#ff4d4d]">Status</label>
                                 </div>
-                                <p className="inline-flex items-center gap-2 border border-green-600 rounded-full px-1">
-                                    <CheckCircle2 className="w-4 h-4 text-green-600" />
+                                <p className={`inline-flex items-center border ${user.is_active ?
+                                    "border-green-600" : "border-red-600"
+                                    } rounded-full px-1`}>
+                                    <span >
+                                        {user.is_active ? <CheckCircle2 className="w-4 h-4 text-green-600" />
+                                            : <ShieldX className="w-4 h-4 text-red-600" />
+                                        }
+                                    </span>
+
                                     <span className={`ml-2 font-medium ${user.is_active
                                         ? "text-green-600"
                                         : "text-red-500"
