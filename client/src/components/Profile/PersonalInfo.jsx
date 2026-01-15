@@ -1,4 +1,4 @@
-import { CheckCircle2, User, Mail, Briefcase } from "lucide-react"
+import { CheckCircle2, User, Mail, Briefcase, Shield, ShieldX } from "lucide-react"
 import { useSelector } from "react-redux";
 
 const PersonalInfo = () => {
@@ -40,12 +40,19 @@ const PersonalInfo = () => {
                         <div>
                             <label className="text-xs font-bold uppercase tracking widest text-[#ff4d4d]">Status</label>
                         </div>
-                        <p className="inline-flex items-center gap-2 border border-green-600 rounded-full px-1">
-                            <CheckCircle2 className="w-4 h-4 text-green-600" />
-                            <span className={`ml-2 font-medium ${status
+                        <p className={`inline-flex items-center gap-2 border ${status === "Active" ?
+                            "border-green-600" : "border-red-600"
+                        } rounded-full px-1`}>
+                            <span >
+                                {status !== "Active" ? <ShieldX className="w-4 h-4 text-red-600" />
+                                : <CheckCircle2 className="w-4 h-4 text-green-600" />
+                                }
+                            </span>
+                            
+                            <span className={`ml-2 font-medium ${status === "Active"
                                 ? "text-green-600"
                                 : "text-red-500"
-                                }`}>{status ? "Active" : "Blocked"}</span>
+                                }`}>{status}</span>
                         </p>
                     </div>
                 </div>
