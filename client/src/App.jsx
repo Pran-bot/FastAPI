@@ -44,14 +44,12 @@ function App() {
             <Route path='/admin/orders' element={<Orders />}></Route>
           </Route>
 
-
           {/* User Routes */}
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='/orders' element={<UserOrders />}></Route>
           {/*profile edit route */}
           <Route path="/me/update/profile" element={<ProfileUpdatePage />}></Route>
           
-
           {/* Product routes */}
           <Route path='/pizza/:id' element={<Pizza />}></Route>
 

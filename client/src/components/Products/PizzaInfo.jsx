@@ -1,7 +1,8 @@
-import React from "react";
+import Loader from "../Loader/Loader";
 
 const PizzaInfo = ({ pizza }) => {
     const link = `${pizza.imageUrl}`;
+    if(!pizza) return <Loader />
     return (
         <>
             <div className="flex p-4 flex-row justify-center mx-auto bg-gray-200 w-[900px] rounded-sm hover:-translate-y-1 hover:shadow-2xl">
