@@ -109,11 +109,11 @@ const OrderTable = ({ orders }) => {
                                     <td className="px-6 py-4">
                                         <div className="flex items-center justify-center gap-3">
                                             <button onClick={() => handleView(order)}
-                                            className="text-gray-900 hover:text-[#ff4d4d]">
+                                            className="text-gray-900 hover:text-[#ff4d4d] focus:outline-none">
                                                 <Eye />
                                             </button>
                                             <button onClick={() => handleEdit(order)}
-                                            className="bg-gray-200 px-3 py-1 rounded-lg hover:bg-[#ff4d4d]">
+                                            className="bg-gray-200 px-3 py-1 rounded-lg hover:bg-[#ff4d4d] focus:outline-none">
                                                 Update
                                             </button>
                                         </div>

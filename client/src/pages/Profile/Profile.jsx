@@ -36,6 +36,7 @@ const Profile = () => {
             </main>
         </>
     );
+    
     if (error) return (
         <>
             <Navbar />
@@ -44,7 +45,6 @@ const Profile = () => {
             </main>
         </>
     );
-
 
     return (
         <>
