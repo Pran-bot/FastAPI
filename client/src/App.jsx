@@ -20,6 +20,7 @@ import CompleteProfile from './components/Auth/CompleteProfile/CompleteProfile.j
 import ProfileUpdatePage from './pages/Profile/ProfileUpdatePage.jsx'
 import ConfirmOrder from './pages/Payment/ConfirmOrder.jsx'
 import PlaceOrder from './pages/Payment/PlaceOrder.jsx'
+import PaymentSuccess from './pages/Payment/PaymentSuccess.jsx'
 
 function App() {
 
@@ -74,6 +75,10 @@ function App() {
             </Route>
             <Route path='/place-order' 
                    element={<PlaceOrder />}
+            ></Route>
+
+            <Route path='/payment-success' 
+                   element={<PaymentSuccess />}
             ></Route>
           </Route>
         </Routes>
