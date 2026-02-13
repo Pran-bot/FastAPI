@@ -34,8 +34,8 @@ const ConfirmOrder = () => {
                                 {/* <h1>Price summary</h1> */}
                                 <PriceBreakDown />
                                 <button
-                                onClick={() => navigate("/place-order")}
-                                className="w-full rounded-lg bg-[#ff4d4d] text-white
+                                    onClick={() => navigate("/place-order")}
+                                    className="w-full rounded-lg bg-[#ff4d4d] text-white
                                             px-6 py-3 font-semibold transistion-opacity 
                                             hover:opacity-90 disabled:opacity-50"
                                 >
@@ -43,7 +43,11 @@ const ConfirmOrder = () => {
                                 </button>
 
                                 <Link
-                                    to={"/home"}>
+                                    to={"/home"}
+                                    className="block w-full rounded-lg bg-[#ff4d4d] text-white
+                                            text-center px-6 py-3 font-semibold transistion-opacity 
+                                            hover:opacity-90 disabled:opacity-50"
+                                >
                                     Back to Cart
                                 </Link>
                             </div>
