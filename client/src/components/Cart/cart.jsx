@@ -142,6 +142,14 @@ const Cart = () => {
                             <button className="w-full bg-[#ff4d4d] text-white
                             hover:bg-red-600 font-bold py-3 rounded-lg transition-all
                             duration-200 active:scale-95"
+                                onClick={() => navigate('/cart')}
+                            >
+                                Go to Cart
+                            </button>
+
+                            <button className="w-full bg-[#ff4d4d] text-white
+                            hover:bg-red-600 font-bold py-3 rounded-lg transition-all
+                            duration-200 active:scale-95"
                                 onClick={onConfirm}
                             >
                                 Proceed to Checkout
