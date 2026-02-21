@@ -35,10 +35,11 @@ const Settings = () => {
                         <ProfileMenu />
                         <div className="flex-1 flex items-center justify-center p-4">
                             <div className="bg-white rounded-2xl shadow-xl overflow-hidden w-full max-w-2xl hover:shadow-2xl transition-shadow duration-300">
-                                <h1 className="text-4xl font-bold text-dark mb-8">Account Settings</h1>
+                                
 
                                 {/* Theme Settings */}
                                 <div className="bg-white rounded-lg shadow-md p-6 mb-6">
+                                    <h1 className="text-4xl font-bold text-dark mb-8">Account Settings</h1>
                                     <h2 className="text-2xl font-semibold text-dark mb-6">Appearance</h2>
 
                                     <div>

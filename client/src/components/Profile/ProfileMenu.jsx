@@ -5,7 +5,7 @@ const ProfileMenu = () => {
         { label: "Security", href: '/me/security' },
         { label: "Notifications", href: '/me/notifications' },
         { label: "Favorites", href: '/me/favourites' },
-        { label: "Support", href: "#" },
+        { label: "Support", href: '/me/support' },
         { label: "Settings", href: '/me/settings' }
     ]
     return (
