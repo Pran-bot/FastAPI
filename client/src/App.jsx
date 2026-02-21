@@ -23,6 +23,7 @@ import PlaceOrder from './pages/Payment/PlaceOrder.jsx'
 import PaymentSuccess from './pages/Payment/PaymentSuccess.jsx'
 import CartPage from './pages/User/Cart.jsx'
 import Favorites from './pages/Profile/Favourite.jsx'
+import Notifications from './pages/Profile/Notifications.jsx'
 
 function App() {
 
@@ -61,6 +62,7 @@ function App() {
           <Route path="/me/update/profile" element={<ProfileUpdatePage />}></Route>
           {/* Profile section routes */}
           <Route path="/me/favourites" element={<Favorites />}></Route>
+          <Route path="/me/notifications" element={<Notifications />}></Route>
 
           {/* Product routes */}
           <Route path='/pizza/:id' element={<Pizza />}></Route>
