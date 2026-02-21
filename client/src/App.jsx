@@ -26,6 +26,7 @@ import Favorites from './pages/Profile/Favourite.jsx'
 import Notifications from './pages/Profile/Notifications.jsx'
 import Security from './pages/Profile/Security.jsx'
 import Settings from './pages/Profile/Seetings.jsx'
+import Support from './pages/Profile/Support.jsx'
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
           <Route path="/me/notifications" element={<Notifications />}></Route>
           <Route path='/me/security' element={<Security />}></Route>
           <Route path='/me/settings' element={<Settings />}></Route>
+          <Route path='/me/support' element={<Support />}></Route>
 
           {/* Product routes */}
           <Route path='/pizza/:id' element={<Pizza />}></Route>
