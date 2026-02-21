@@ -21,6 +21,7 @@ import ProfileUpdatePage from './pages/Profile/ProfileUpdatePage.jsx'
 import ConfirmOrder from './pages/Payment/ConfirmOrder.jsx'
 import PlaceOrder from './pages/Payment/PlaceOrder.jsx'
 import PaymentSuccess from './pages/Payment/PaymentSuccess.jsx'
+import CartPage from './pages/User/Cart.jsx'
 
 function App() {
 
@@ -54,6 +55,7 @@ function App() {
           {/* User Routes */}
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='/orders' element={<UserOrders />}></Route>
+          <Route path='/cart' element={<CartPage />}></Route>
           {/*profile edit route */}
           <Route path="/me/update/profile" element={<ProfileUpdatePage />}></Route>
 
@@ -73,12 +75,12 @@ function App() {
               }
             >
             </Route>
-            <Route path='/place-order' 
-                   element={<PlaceOrder />}
+            <Route path='/place-order'
+              element={<PlaceOrder />}
             ></Route>
 
-            <Route path='/payment-success' 
-                   element={<PaymentSuccess />}
+            <Route path='/payment-success'
+              element={<PaymentSuccess />}
             ></Route>
           </Route>
         </Routes>

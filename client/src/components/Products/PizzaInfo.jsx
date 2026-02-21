@@ -10,7 +10,7 @@ const PizzaInfo = ({ pizza }) => {
                 <div className="p-8">
                     <h4 className="mt-4 font-bold">{pizza.name}</h4>
                     <p className="mt-4">{pizza.description}</p>
-                    <p className="mt-4">{pizza.price}</p>
+                    <p className="mt-4">₹ {pizza.price}</p>
                     <p className="text-center bg-[#ff4d4d] p-4 rounded-xl text-white hover:bg-red-500 mt-4">View More</p>
                 </div>
             </div>
