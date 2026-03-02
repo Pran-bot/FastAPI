@@ -24,11 +24,12 @@ const Cart = new Schema({
                     "extra_large"
                 ],
                 default: "small",
-                required: true
+                // required: true
             },
             quantity: {
                 type: Number,
-                required: true,
+                default: "1",
+                // required: true,
                 min: 1
             },
         }

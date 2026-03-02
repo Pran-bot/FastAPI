@@ -8,6 +8,9 @@ import { useSelector } from "react-redux";
 
 const Home = () => {
     const { role } = useSelector((state) => state.auth);
+    // !just for debugging
+    const cartstate = useSelector((state) => state.cart);
+    console.log("Cart state", cartstate);
 
     return (
         <>

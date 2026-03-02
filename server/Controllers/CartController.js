@@ -22,7 +22,7 @@ const AddtoCart = async (req, res) => {
             return res.status(404).json({ message: "Pizza not found" });
         }
 
-        let cart = await CartModel.findOne({ user: (req.user._id) });
+        let cart = await CartModel.findOne({ user: req.user._id });
 
         if (!cart) {
             cart = new CartModel({
@@ -32,16 +32,17 @@ const AddtoCart = async (req, res) => {
             });
         }
 
-        const existingItem = await cart.cart_items.find(
-            (item) => item.pizza.toString() === pizzaId && item.size === size
+        const existingItem = cart.cart_items.find(
+            (item) =>
+                item.pizza.toString() === pizzaId
         );
 
         if (existingItem) {
-            existingItem.quantity += quantity;
+            existingItem.quantity += quantity || 1;
         } else {
             cart.cart_items.push({
                 pizza: pizzaId,
-                quantity,
+                quantity: quantity || 1,
                 size,
             });
         }
@@ -64,6 +65,7 @@ const AddtoCart = async (req, res) => {
 
         cart.total_price = total;
         await cart.save();
+        await cart.populate("cart_items.pizza");
 
         res.status(200).json({
             message: "Item added to cart",
@@ -81,13 +83,14 @@ const GetCartByUserId = async (req, res) => {
         if (!user) {
             return res.status(404).json({ message: "User not found!!" });
         }
-        const getcart = await CartModel.findOne({ user: user.id });
+        const getcart = await CartModel.findOne({ user: user.id })
+            .populate("cart_items.pizza");
         // if(!getcart){
         //     res.status()
         // }
         res.status(200).json({ success: true, getcart });
     } catch (err) {
-        res.status(500).jsn({ message: err.message });
+        res.status(500).json({ message: err.message });
         console.error(err);
     }
 }

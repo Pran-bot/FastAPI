@@ -1,14 +1,28 @@
 import { ShoppingCart } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../features/Cart/cartSlice";
+import { setCart } from "../../features/Cart/cartSlice";
+import useManualFetch from "../../shared/hooks/useManualFetch";
+import { useEffect } from "react";
 
 const PizzaCard = ({ pizza }) => {
-    const { is_profile_completed, role } = useSelector((state) => state.auth);
+    const { role } = useSelector((state) => state.auth);
+    const { execute, data, status, error } = useManualFetch();
     const link = `${pizza.imageUrl}`
     const dispatch = useDispatch();
     const link2 = `/pizza/${pizza._id}`;
-    // console.log(onAddCart);
-    //   console.log("🔥 CUSTOMER CARD RENDER", typeof onAddToCart);
+
+    const handelAddtocart = async (pizza_id) => {
+        await execute('/carts/cart', "POST",
+            {
+                pizzaId: pizza_id
+            }
+        );
+    };
+    useEffect(() => {
+        if (status === "success" && data) {
+            dispatch(setCart(data?.cart));
+        }
+    }, [status, data, error, dispatch]);
 
 
     return (
@@ -26,10 +40,9 @@ const PizzaCard = ({ pizza }) => {
                         </span>
                         {role === "user" &&
                             <button
-                                onClick={() => {
-                                    console.log("CLICKED", typeof addToCart),
-                                        dispatch(addToCart?.(pizza))
-                                }}
+                                onClick={() =>
+                                    handelAddtocart(pizza._id)
+                                }
                                 className="bg-[#ff4d4d] text-white  px-2 py-1 rounded-xl
                                     flex items-center gap-2 transition-all duration-200 active:scale-95 focus:outline-none"
                             >
