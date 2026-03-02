@@ -157,15 +157,16 @@ const Navbar = () => {
                                                 className='absolute -top-1 -right-1 bg-gray-200
                                                 text-[#ff4d4d]-foreground text-xs font-bold 
                                                 rounded-full w-5 h-5 flex items-center justify-center'>
+                                                0
                                                 {totalItems}
                                             </span>
                                         )}
                                     </button>
                                 ) : null}
-                                {/* 
+
                                 {!isAuthenticated && role === null ? (
                                     <ShoppingCart className='text-gray-900 hover:text-[#ff4d4d] ' />
-                                ) : null} */}
+                                ) : null}
 
                             </nav>
 
@@ -206,12 +207,13 @@ const Navbar = () => {
                                 >
                                     <ShoppingCart className='text-gray-900 hover:text-[#ff4d4d] ' />
                                     {totalItems > 0 && (
-                                        <span
-                                            className='absolute -top-1 -right-1 bg-gray-200
+                                    <span
+                                        className='absolute -top-1 -right-1 bg-gray-200
                                                 text-[#ff4d4d]-foreground text-xs font-bold 
                                                 rounded-full w-5 h-5 flex items-center justify-center'>
-                                            {totalItems}
-                                        </span>
+                                        {totalItems}
+                                        {/* 0 */}
+                                    </span>
                                     )}
                                 </button>
                             ) : null}

@@ -1,10 +1,19 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Minus, Plus, Trash2, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart, updateQuantity, selectIsCartOpen, toggleCart, selectCartItems } from "../../features/Cart/cartSlice";
+// removeFromCart, updateQuantity, selectIsCartOpen, toggleCart, selectCartItems
+import { removeFromCart, updateQuantity, selectIsCartOpen, toggleCart, clearCart, selectCartItems } from "../../features/Cart/cartSlice";
+import useFetch from "../../shared/hooks/useFetch";
+import Loader from "../Loader/Loader";
+import ErrorState from "../Loader/NotFound";
+import useManualFetch from "../../shared/hooks/useManualFetch";
+import { toast } from "react-toastify";
 
 const Cart = () => {
+
+    // const { data, loading, error } = useFetch(`/carts/cart`);
+    const { data: manualData, loading: manualLoading, error: manualError, status, execute } = useManualFetch();
 
     const [isClosing, setIsClosing] = useState(false);
     const dispatch = useDispatch();
@@ -21,8 +30,31 @@ const Cart = () => {
         }, 300)
     }
 
+    const handleClear = async () => {
+        await execute('/carts/cart', "PATCH");
+    };
+    useEffect(() => {
+        if (status === 'success' && manualData) {
+            setIsClosing(true)
+            setTimeout(() => {
+                dispatch(clearCart());
+                setIsClosing(false)
+                toast.success(manualData.message);
+            }, 300);
+        }
+        // } else if (manualLoading) {
+        //     return (
+        //         <Loader />
+        //     )
+        // } else {
+        //     return (
+        //         <ErrorState />
+        //     )
+        // }
+    }, [status, manualError, manualLoading]);
+
     const total = cartItems.reduce((sum, item) => {
-        return sum + item.price * item.quantity;
+        return sum + item.pizza.price * item.quantity;
     }, 0);
 
     const tax = (total * 0.1).toFixed(2);
@@ -33,6 +65,7 @@ const Cart = () => {
     };
     return (
         <>
+            {/* {!cartItems && <Loader />} */}
             {isCartOpen && (
                 <div
                     className={`fixed inset-0 transition-opacity
@@ -44,7 +77,8 @@ const Cart = () => {
 
             <div
                 className={`fixed top-0 right-0 h-full w-full md:w-96 bg-white shadow-xl z-50 flex flex-col transition-transform duration-300 transform ${isCartOpen && !isClosing ? 'translate-x-0' : 'translate-x-full'
-                    }`}>
+                    }`}
+            >
                 {/* Header */}
                 <div
                     className="bg-gray-200 text-gray-900 flex justify-between items-center p-4"
@@ -71,20 +105,20 @@ const Cart = () => {
                         cartItems.map(item => (
                             <div key={item._id} className="bg-gray-100 p-4 flex gap-4">
                                 <img
-                                    src={item.imageUrl}
-                                    alt={item.name}
+                                    src={item.pizza.imageUrl}
+                                    alt={item.pizza.name}
                                     className="w-20 h-20 object-cover rounded"
                                 />
                                 <div className="flex-1">
-                                    <h3 className="font-bold text-gray-900">{item.name}</h3>
-                                    <p className="text-sm text-gary-600">{item.price} each</p>
+                                    <h3 className="font-bold text-gray-900">{item.pizza.name}</h3>
+                                    <p className="text-sm text-gray-600">{item.pizza.price} each</p>
 
                                     <div className="flex items-center gap-2 mt-2">
                                         <button
-                                            className="p-1 hover:bg-border rounded
+                                            className="p-1 hover:bg-gray-300 rounded
                                         transition-colors"
                                             onClick={() => dispatch(updateQuantity({
-                                                pizzaId: item._id,
+                                                pizzaId: item?.pizza._id,
                                                 newQuantity: item.quantity - 1
                                             }))}
 
@@ -106,7 +140,7 @@ const Cart = () => {
                                 </div>
 
                                 <div className="text-right flex flex-col justify-between">
-                                    <p className="font-bold text-gray-900">{item.price}</p>
+                                    <p className="font-bold text-gray-900">{item?.pizza.price}</p>
                                     <button
                                         className="p-1 hover:bg-gray-300
                                     rounded transition-colors text-gray-900"
@@ -153,6 +187,14 @@ const Cart = () => {
                                 onClick={onConfirm}
                             >
                                 Proceed to Checkout
+                            </button>
+
+                            <button className="w-full bg-[#ff4d4d] text-white
+                            hover:bg-red-600 font-bold py-3 rounded-lg transition-all
+                            duration-200 active:scale-95"
+                                onClick={() => handleClear()}
+                            >
+                                Clear Cart
                             </button>
                         </div>
 
