@@ -3,16 +3,11 @@ import { Minus, Plus, Trash2, X } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 // removeFromCart, updateQuantity, selectIsCartOpen, toggleCart, selectCartItems
-import { removeFromCart, updateQuantity, selectIsCartOpen, toggleCart, clearCart, selectCartItems } from "../../features/Cart/cartSlice";
-import useFetch from "../../shared/hooks/useFetch";
-import Loader from "../Loader/Loader";
-import ErrorState from "../Loader/NotFound";
+import { removeFromCart, updateQuantity, selectIsCartOpen, toggleCart, clearCart, selectCartItems,  } from "../../features/Cart/cartSlice";
 import useManualFetch from "../../shared/hooks/useManualFetch";
 import { toast } from "react-toastify";
 
 const Cart = () => {
-
-    // const { data, loading, error } = useFetch(`/carts/cart`);
     const { data: manualData, loading: manualLoading, error: manualError, status, execute } = useManualFetch();
 
     const [isClosing, setIsClosing] = useState(false);
@@ -42,15 +37,6 @@ const Cart = () => {
                 toast.success(manualData.message);
             }, 300);
         }
-        // } else if (manualLoading) {
-        //     return (
-        //         <Loader />
-        //     )
-        // } else {
-        //     return (
-        //         <ErrorState />
-        //     )
-        // }
     }, [status, manualError, manualLoading]);
 
     const total = cartItems.reduce((sum, item) => {

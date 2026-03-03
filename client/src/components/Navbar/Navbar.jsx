@@ -9,7 +9,7 @@ import { refreshProfileState } from '../../features/user/profileSlice';
 import useManualFetch from '../../shared/hooks/useManualFetch';
 import { toast } from 'react-toastify';
 import { ShoppingCart } from 'lucide-react';
-import { selectTotalItems, toggleCart } from '../../features/Cart/cartSlice';
+import { toggleCart, clearCart, selectTotalItems } from '../../features/Cart/cartSlice';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ')
@@ -70,6 +70,7 @@ const Navbar = () => {
             "POST");
         dispatch(refreshAuthState());
         dispatch(refreshProfileState());
+        dispatch(clearCart());
         navigate("/");
     };
 
@@ -149,6 +150,7 @@ const Navbar = () => {
                                 {role === "user" ? (
                                     <button
                                         onClick={() => dispatch(toggleCart(true))}
+                                        // onClick={() => dispatch(clearCart())}
                                         className='relative p-2 rounded-lg hover:bg-muted transition-colors"'
                                     >
                                         <ShoppingCart className='text-gray-900 hover:text-[#ff4d4d] ' />
@@ -157,8 +159,8 @@ const Navbar = () => {
                                                 className='absolute -top-1 -right-1 bg-gray-200
                                                 text-[#ff4d4d]-foreground text-xs font-bold 
                                                 rounded-full w-5 h-5 flex items-center justify-center'>
-                                                0
                                                 {totalItems}
+                                                {/* 0 */}
                                             </span>
                                         )}
                                     </button>
@@ -203,6 +205,7 @@ const Navbar = () => {
                             {role === "user" ? (
                                 <button
                                     onClick={() => dispatch(toggleCart(true))}
+                                    // onClick={() => dispatch(clearCart())}
                                     className='relative p-2 rounded-lg hover:bg-muted transition-colors"'
                                 >
                                     <ShoppingCart className='text-gray-900 hover:text-[#ff4d4d] ' />
@@ -212,7 +215,6 @@ const Navbar = () => {
                                                 text-[#ff4d4d]-foreground text-xs font-bold 
                                                 rounded-full w-5 h-5 flex items-center justify-center'>
                                         {totalItems}
-                                        {/* 0 */}
                                     </span>
                                     )}
                                 </button>

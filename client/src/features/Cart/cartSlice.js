@@ -16,11 +16,11 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         setCart: (state, action) => {
-            const cart = action.payload;
+            const Cart = action.payload;
 
-            state.cartItems = cart.cart_items;
-            state.totalPrice = cart.total_price;
-            state.isCartOpen = true;
+            state.cartItems = Cart.cart_items;
+            state.totalPrice = Cart.total_price;
+            state.isCartOpen = false;
             saveCartItems(state.cart);
             toast.success(`Item added to cart!!!`);
         },
