@@ -20,8 +20,8 @@ const OrderTable = () => {
         }
     }, [orderError, orderData]);
 
-    const { data: cancelData, error: cancelError, loading: cancelLoading, status: cancelStatus, execute: cancelExecute } = useManualFetch();
-
+    const { execute: cancelExecute } = useManualFetch();
+    
     const handleCancelOrder = async (orderId) => {
         try {
             await cancelExecute(`/orders/admin/order/${orderId}/cancel`, "PATCH");
@@ -30,6 +30,8 @@ const OrderTable = () => {
             toast.error(err.message || "Failed to cancel order");
         }
     };
+
+    
 
     const OrderStatusColor = {
         cancelled_by_admin: "bg-gray-800 text-gray-100",
