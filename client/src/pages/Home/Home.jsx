@@ -1,9 +1,9 @@
 import Navbar from "../../components/Navbar/Navbar.jsx";
 import Footer from "../../components/Landing/Footer.jsx"
 import Hero from "../../components/Landing/Hero.jsx";
-import Cart from "../../components/Cart/cart.jsx";
 import PizzaList from "../../components/Products/PizzaList.jsx";
 import { useSelector } from "react-redux";
+import Cart from "../../components/Cart/cart.jsx";
 
 
 const Home = () => {

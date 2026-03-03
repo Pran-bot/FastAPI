@@ -39,7 +39,7 @@ const Login = () => {
                 role: data.role,
                 token: data.token,
                 is_profile_completed: data.is_profile_completed
-            })
+            }),
             );
             toast.success("Login successful!");
             if (!data.is_profile_completed) {
