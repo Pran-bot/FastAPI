@@ -7,7 +7,8 @@ import { useSelector } from "react-redux";
 const SideBar = () => {
     const { isHovered, isOpen } = useSelector((state) => state.sideBarStatus);
     return (
-        <div className={`h-screen bg-gray-100 text-gray-900 transition-all duration-300`}>
+        // <div className={`min-h-screen fixed bg-gray-100 text-gray-900 transition-all duration-300 overflow-y-auto`}>
+        <div className={`fixed h-screen ${isOpen ? "w-48" : "w-16"} bg-gray-100 transition-all duration-300 overflow-y-auto`}>
             <ul className="mt-6 space-y-2">
                 <Link className="flex items-center gap-2 p-4 cursor-pointer transition-all duration-200 underline-offset-4 hover:underline decoration-[#ff4d4d] decoration-2"
                     to='/admin/pizzas'

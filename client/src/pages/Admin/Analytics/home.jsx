@@ -1,17 +1,29 @@
+import { useSelector } from "react-redux";
 import CategoryChart from "../../../components/Admin/Analytic_Dashborad/charts/category";
 import CustomerChart from "../../../components/Admin/Analytic_Dashborad/charts/customers";
 import GrowthChart from "../../../components/Admin/Analytic_Dashborad/charts/growth";
 import OrdersChart from "../../../components/Admin/Analytic_Dashborad/charts/orders";
 import RevenueChart from "../../../components/Admin/Analytic_Dashborad/charts/revenue";
+import SideBar from "../../../components/Admin/SideBar/SideBar";
+import SideBarToggle from "../../../components/Admin/SideBar/sideBarToggle";
+import Navbar from "../../../components/Navbar/Navbar";
 
 const AnalyticsHome = () => {
+    const { isOpen } = useSelector((state) => state.sideBarStatus);
     return (
         <>
-            <CategoryChart />
-            <CustomerChart />
-            <GrowthChart />
-            <OrdersChart />
-            <RevenueChart />
+            {/* <Navbar /> */}
+            <div className="flex mt-16">
+                <SideBarToggle />
+                {isOpen && <SideBar />}
+                <div className={`flex-1  ${isOpen ? "ml-64" : "ml-16"} mr-16 w-full transition-all duration-300`}>
+                    <CategoryChart />
+                    <CustomerChart />
+                    <GrowthChart />
+                    <OrdersChart />
+                    <RevenueChart />
+                </div>
+            </div>
         </>
     )
 }
