@@ -147,7 +147,7 @@ const UpdateOrderStatus = async (req, res) => {
             return res.status(404).json({ success: false, message: "Order is already completed or may be internal server error.", updatedOrder });
         }
 
-        res.status(200).json({ success: true, message: "Order status updated successfully" });
+        res.status(200).json({ success: true, message: "Order status updated successfully", updatedOrder });
     } catch (err) {
         res.status(500).json({ message: err.message });
         console.error(err);
