@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useManualFetch from "../../../shared/hooks/useManualFetch.jsx";
 import Modal from "../../Modal/Modal.jsx";
 import { toast } from "react-toastify";
+import { updateItem } from "../../../shared/utils/stateUpdater.js";
 
 const statusTransitions = {
     pending: ["confirmed"],
@@ -12,26 +13,31 @@ const statusTransitions = {
 }
 const ORDER_FLOW = ["pending", "confirmed", "preparing", "ready", "completed"];
 
-const OrderStatusModal = ({ order, isOpen, onClose, actionType, onStatusChange }) => {
+const OrderStatusModal = ({ order, isOpen, onClose, actionType, setOrderData }) => {
     const [selectedstatus, setSelectedstatus] = useState("");
     const [updating, setUpdating] = useState(false);
 
-    const { execute: updateExecute } = useManualFetch();
+    const { execute: updateExecute, data: updateData, status: updateStatus } = useManualFetch();
     const handleUpdateOrder = async (orderId, newStatus) => {
         try {
             setUpdating(true);
             await updateExecute(`/orders/order/${orderId}/status`, "PATCH",
                 { new_status: newStatus }
             );
-            toast.success("Order status updated successfully");
-            onStatusChange?.(newStatus); 
-            onClose(); 
         } catch (err) {
             toast.error(err.message || "Failed to update order");
         } finally {
             setUpdating(false);
         }
     };
+
+    useEffect(() => {
+        if (updateData && updateStatus === "success") {
+            toast.success("Order status updated successfully");
+            updateItem(setOrderData, updateData?.updatedOrder);
+            onClose();
+        }
+    },[updateData])
 
     if (!isOpen || !order) return null;
 
@@ -41,41 +47,6 @@ const OrderStatusModal = ({ order, isOpen, onClose, actionType, onStatusChange }
         return (
 
             <>
-                {/* <Modal isOpen={isOpen} onClose={onClose} title="Update Order Status">
-                    <div className="space-y-4">
-                        <div className="flex flex-row items-center justify-between gap-3">
-                            <p className="text-gray-900 font-semibold">Orders ID:</p>
-                            <p className="bg-gray-400 px-2 rounded-lg hover:bg-[#ff4d4d]">{`ORD${order._id.slice(-6).toUpperCase()}`}</p>
-                        </div>
-                        <div className="flex flex-row items-center justify-between gap-3">
-                            <p className="text-gray-900 font-semibold">Current Status:</p>
-                            <p className="bg-gray-400 px-2 rounded-lg hover:bg-[#ff4d4d] uppercase">{order?.order_status}</p>
-                        </div>
-
-                        {availableTransitions.length > 0 ? (
-                            <div className="flex items-center justify-between">
-                                <p>Update to:</p>
-                                <div>
-                                    {availableTransitions.map((status) => (
-                                        <button
-                                            key={status}
-                                            className="w-full px-3 py-1 border border-primary text-primary rounded-lg hover:bg-primary hover:text-primary-foreground transition-colors font-medium uppercase"
-                                            onClick={() => {
-                                                onStatusChange(status)
-                                            }}
-                                        >
-                                            {status}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        )
-                            :
-                            (<div>
-                                <p>This Order is already completed.</p>
-                            </div>)}
-                    </div>
-                </Modal> */}
                 <Modal isOpen={isOpen} onClose={onClose} title="Update Order Status">
                     <div className="space-y-6">
 
@@ -122,35 +93,6 @@ const OrderStatusModal = ({ order, isOpen, onClose, actionType, onStatusChange }
                                 );
                             })}
                         </div>
-                        {/* <div className="mt-6 border-t pt-4">
-                            <p className="text-sm font-semibold text-gray-700 mb-2">
-                                Manual Override (Admin Only)
-                            </p>
-
-                            <select
-                                className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
-                                value={selectedstatus}
-                                onChange={(e) => setSelectedstatus(e.target.value)}
-                            >
-                                <option value="" disabled>
-                                    Select status manually
-                                </option>
-
-                                {ORDER_FLOW.map((status) => (
-                                    <option key={status} value={status}>
-                                        {status.toUpperCase()}
-                                    </option>
-                                ))}
-                            </select>
-
-                            <button
-                                onClick={() => handleUpdateOrder(order._id, selectedstatus)}
-                                className="mt-3 w-full bg-gray-500 text-gray-900 py-2 rounded-lg"
-                            >
-                                Submit
-                            </button>
-                        </div> */}
-
                         {order?.order_status === "completed" && (
                             <p className="text-center text-gray-500 mt-4">
                                 This order has been completed.

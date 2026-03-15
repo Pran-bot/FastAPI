@@ -56,13 +56,13 @@ const OrderTable = () => {
     const filteredOrders = orders?.filter((order) => {
 
         const matchesSearch =
-            order?.user?.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            order?.user?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
             order?.items?.some((item) =>
-                item?.pizza?.name.toLowerCase().includes(searchTerm.toLowerCase())
+                item?.pizza?.name?.toLowerCase().includes(searchTerm.toLowerCase())
             );
 
         const matchesStaus =
-            filterStatus === "all" || order.status === filterStatus;
+            filterStatus === "all" || order?.order_status === filterStatus;
 
         return matchesSearch && matchesStaus;
     });
@@ -246,6 +246,7 @@ const OrderTable = () => {
                         actionType={actionType}
                         // onStatusChange={handleStatus}
                         onClose={() => setSelectedOrder(null)}
+                        setOrderData={setOrders}
                     />
                 </div>
 
