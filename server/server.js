@@ -9,6 +9,7 @@ const OrderRouter = require("./Routes/OrderRoutes/OrderRoutes.js")
 const cookieParser = require("cookie-parser");
 const CartRouter = require('./Routes/CartRoutes/CartRoutes.js');
 const analytics_router = require('./Routes/AnalyticsRoutes/AnalyticsRoutes.js');
+const ai_router = require('./Routes/AiRoutes/aiRoutes.js');
 
 require("dotenv").config();
 
@@ -52,6 +53,9 @@ app.use('/carts', CartRouter)
 
 // analytics routes
 app.use('/summary', analytics_router)
+
+// ai routes
+app.use('/ai/', ai_router);
 
 app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
