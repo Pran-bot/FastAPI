@@ -5,8 +5,9 @@ import useManualFetch from "../../shared/hooks/useManualFetch";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import ProfileAvtar from "../Profile/ProfileAvtar";
+import { updateItem } from "../../shared/utils/stateUpdater";
 
-const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
+const UserUpdateModel = ({ user, isOpen, onClose, actionType, setUsers }) => {
     const [role, setRole] = useState("");
     const [is_active, setis_active] = useState("");
 
@@ -17,22 +18,6 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
             setis_active(user.is_active || "");
         }
     }, [actionType, user]);
-
-    useEffect(() => {
-        if (status == "success" && data) {
-            // onPizzaUpdated(data);
-            toast.success("User updated successfully!");
-            // onClose();
-        }
-    }, [status, data]);
-
-    useEffect(() => {
-        if (error) {
-            toast.error("Something went wrong!");
-        }
-    }, [error]);
-
-    if (!isOpen || !user) return null;
 
     const handleEdit = async () => {
         if (!user) return;
@@ -46,8 +31,24 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
             toast.info("No changes made");
             return;
         }
+        onClose();
         await execute(`/users/admin/user/${user._id}`, "PATCH", updateData);
     };
+
+    useEffect(() => {
+        if (status == "success" && data) {
+            updateItem(setUsers, data?.data);
+            toast.success("User updated successfully!");
+        }
+    }, [status, data]);
+
+    useEffect(() => {
+        if (error) {
+            toast.error("Something went wrong!");
+        }
+    }, [error]);
+
+    if (!isOpen || !user) return null;
     return (
         <>
             <Modal isOpen={isOpen} onClose={onClose} title={actionType === "edit" ? "Update User" : "User"}>
@@ -56,30 +57,34 @@ const UserUpdateModel = ({ user, isOpen, onClose, actionType }) => {
                         <div className="flex justify-center mb-6">
                             <ProfileAvtar />
                         </div>
-                        <input
-                            className="input w-full py-1 px-3 focus:outline-none border 
-                                    border-gray-500 rounded-sm text-gray-900
-                                    placeholder-gray-500 bg-gray-300"
+                        <select
                             value={role}
                             onChange={(e) => setRole(e.target.value)}
-                            placeholder="User role"
-                        />
+                            className="w-full py-2 px-3 border border-gray-400 rounded-md bg-gray-100"
+                        >
+                            <option value="">Select Role</option>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                        </select>
 
-                        <input
-                            className="input w-full py-1 px-3 focus:outline-none border 
-                                    border-gray-500 rounded-sm text-gray-900
-                                    placeholder-gray-500 bg-gray-300"
-                            value={is_active}
-                            onChange={(e) => setis_active(e.target.value)}
-                            placeholder="User status (true for active ,false for blocked)"
-                        />
+                        <label className="w-full py-2 px-3 border border-gray-400 rounded-md bg-gray-100 flex gap-2">
+                            <span className="text-sm font-medium">Active</span>
+
+                            <input
+                                type="checkbox"
+                                checked={is_active}
+                                onChange={(e) => setis_active(e.target.checked)}
+                                className="w-5 h-5"
+                            />
+                        </label>
 
                         <button
                             onClick={handleEdit}
-                            // disabled={loading}
-                            className="text-white bg-[#ff4d4d] px-3 py-1 rounded-lg hover:bg-red-500"
+                            disabled={status === "loading"}
+                            className="w-full bg-red-500 text-white py-2 rounded-md 
+             hover:bg-red-600 transition disabled:opacity-50"
                         >
-                            {status === "loading" ? "Updating..." : "Update"}
+                            {status === "loading" ? "Updating..." : "Update User"}
                         </button>
                     </div>
                 ) : (

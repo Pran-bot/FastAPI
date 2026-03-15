@@ -21,7 +21,9 @@ const UserCard = ({ user, onEdit, onView, onDelete }) => {
                     <p className="text-sm text-gray-900">{user.email}</p>
                 </td>
                 <td className="px-6 py-4">
-                    <span className="inline-block px-3 py-1 text-xs font-medium bg-gray-200 rounded-full">
+                    <span className={`inline-block px-3 py-1 text-xs font-semibold ${user.role === "admin"
+                        ? "bg-red-100 text-red-700"
+                        : "bg-blue-100 text-blue-700"} rounded-full capitalize`}>
                         {user.role}
                     </span>
                 </td>
@@ -65,7 +67,7 @@ const UserCard = ({ user, onEdit, onView, onDelete }) => {
                         }
                     </div>
                 </td>
-            </tr>
+            </tr >
         </>
     );
 };
