@@ -66,9 +66,9 @@ const GetAllUsers = async (req, res) => {
         const skip = (page - 1) * limit;
 
         const users = await UserModel.find({})
-        .select("-password")
-        .skip(skip)
-        .limit(Number(limit));
+            .select("-password")
+            .skip(skip)
+            .limit(Number(limit));
         if (!users) {
             res.status(404).json({ success: false, message: "Users not found!" });
         }
@@ -103,7 +103,7 @@ const UpdateUser = async (req, res) => {
             res.status(404).json({ success: false, message: "User not found!" });
         }
 
-        res.status(201).json({ success: true, usertoUpdate, });
+        res.status(201).json({ success: true, usertoUpdate });
 
     } catch (err) {
         res.status(500).json({ message: err.message });
@@ -131,11 +131,11 @@ const GetUserById = async (req, res) => {
 
 ////////// Route for admin to update user's role and status ////////////
 const UpdateUserByID = async (req, res) => {
-    try{
+    try {
 
         const { role, is_active } = req.body;
         const userId = req.params.id;
-        const UserToUpdate = await UserModel.findByIdAndUpdate(
+        const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
             {
                 role,
@@ -144,18 +144,18 @@ const UpdateUserByID = async (req, res) => {
             { new: true }
         );
 
-        if(!UserToUpdate){
-            res.status(404).json({ success:false, message: "User not found!"})
+        if (!updatedUser) {
+            res.status(404).json({ success: false, message: "User not found!" })
         }
 
-        res.status(200).json({ success:true, message: "User Updated Successfully", 
-            id: UserToUpdate._id,
-            role,
-            is_active
+        res.status(200).json({
+            success: true,
+            message: "User Updated Successfully",
+            data: updatedUser
         })
 
-    }catch(err){
-        res.status(500).json({ message : err.message })
+    } catch (err) {
+        res.status(500).json({ message: err.message })
         console.error(err);
     }
 }

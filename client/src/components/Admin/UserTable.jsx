@@ -6,6 +6,7 @@ import useManualFetch from "../../shared/hooks/useManualFetch";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import useFetch from "../../shared/hooks/useFetch";
+import { removeItem } from "../../shared/utils/stateUpdater";
 
 const UserTable = () => {
     const [userdata, setUserdata] = useState([]);
@@ -36,15 +37,10 @@ const UserTable = () => {
     }
 
     const { execute, data, error, status } = useManualFetch();
-
-    const refetchUsers = async (userId) => {
-        setUserdata(prev => prev.filter(user => user._id != userId))
-    };
-
     const handleDelete = async (user_id) => {
         try {
             await execute(`/users/user/${user_id}`, "DELETE");
-            refetchUsers(user_id);
+            removeItem(setUserdata, user_id);
             console.log("Deleted", user_id);
         } catch (err) {
             console.error("Delete failed", err);
@@ -153,6 +149,7 @@ const UserTable = () => {
                         isOpen={!!selectedUser}
                         actionType={actionType}
                         onClose={() => setSelectedUser(null)}
+                        setUsers={setUserdata}
                     />
                 </div>
 
