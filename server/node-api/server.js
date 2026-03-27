@@ -29,7 +29,7 @@ const allowedOrigins = [
 ];
 
 app.use(cors({
-    origin: 'https://pizza-paradise-seven.vercel.app',
+    origin: allowedOrigins,
     credentials: true
 }))
 
