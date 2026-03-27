@@ -9,3 +9,4 @@ venv
 /server/Config
 
 server/node-api/node_modules
+server/node-api/.env
