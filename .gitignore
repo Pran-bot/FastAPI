@@ -10,6 +10,8 @@ venv
 
 server/node-api/node_modules
 server/node-api/.env
+server/node-api/Config
 
 server/python-api/venv
 server/python-api/__pycache__
+/server/Config
